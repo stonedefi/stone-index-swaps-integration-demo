@@ -2,35 +2,43 @@
 
 #[cfg(test)]
 mod tests {
-    use frame_support::{impl_outer_origin, parameter_types, weights::Weight, assert_ok};
+    use frame_support::{construct_runtime, parameter_types, assert_ok};
     use sp_core::H256;
     use sp_runtime::{
         testing::Header,
         traits::{BlakeTwo256, IdentityLookup},
-        Perbill,
     };
 
-    impl_outer_origin! {
-        pub enum Origin for TestRuntime {}
-    }
-
-    // Configure a mock runtime to test the pallet.
-
-    #[derive(Clone, Eq, PartialEq)]
-    pub struct TestRuntime;
+    type UncheckedExtrinsic = frame_system::mocking::MockUncheckedExtrinsic<TestRuntime>;
+    type Block = frame_system::mocking::MockBlock<TestRuntime>;
+    
+    construct_runtime!(
+        pub enum TestRuntime where
+            Block = Block,
+            NodeBlock = Block,
+            UncheckedExtrinsic = UncheckedExtrinsic,
+        {
+            System: frame_system::{Module, Call, Config, Storage, Event<T>},
+            Assets: pallet_assets::{Module, Call, Event<T>},
+            StoneIndex: pallet_stone_index::{Module, Call, Storage, Event<T>},
+            Fungible: pallet_fungible::{Module, Call, Storage, Event<T>},
+            Swaps: pallet_swaps::{Module, Call, Storage, Event<T>},      
+            Balances: pallet_balances::{Module, Call, Storage, Event<T>},
+        }
+    );
 
     parameter_types! {
         pub const BlockHashCount: u64 = 250;
-        pub const MaximumBlockWeight: Weight = 1024;
-        pub const MaximumBlockLength: u32 = 2 * 1024;
-        pub const AvailableBlockRatio: Perbill = Perbill::from_percent(75);
+        pub const SS58Prefix: u8 = 42;
         pub const ExistentialDeposit: u64 = 1;
     }
 
-    impl frame_system::Trait for TestRuntime {
+    impl frame_system::Config for TestRuntime {
         type BaseCallFilter = ();
+        type BlockWeights = ();
+        type BlockLength = ();
         type Origin = Origin;
-        type Call = ();
+        type Call = Call;
         type Index = u64;
         type BlockNumber = u64;
         type Hash = H256;
@@ -40,33 +48,27 @@ mod tests {
         type Header = Header;
         type Event = ();
         type BlockHashCount = BlockHashCount;
-        type MaximumBlockWeight = MaximumBlockWeight;
         type DbWeight = ();
-        type BlockExecutionWeight = ();
-        type ExtrinsicBaseWeight = ();
-        type MaximumExtrinsicWeight = MaximumBlockWeight;
-        type MaximumBlockLength = MaximumBlockLength;
-        type AvailableBlockRatio = AvailableBlockRatio;
         type Version = ();
-        type PalletInfo = ();
+        type PalletInfo = PalletInfo;
         type AccountData = pallet_balances::AccountData<u64>;
         type OnNewAccount = ();
         type OnKilledAccount = ();
         type SystemWeightInfo = ();
-    }
+        type SS58Prefix = SS58Prefix;
+        }
 
-    impl pallet_assets::Trait for TestRuntime {
+    impl pallet_assets::Config for TestRuntime {
         type Event = ();
         type Balance = u64;
         type AssetId = u64;
     }
 
-    impl pallet_stone_index::Trait for TestRuntime {
+    impl pallet_stone_index::Config for TestRuntime {
         type Event = ();
     }
 
-
-    impl pallet_balances::Trait for TestRuntime {
+    impl pallet_balances::Config for TestRuntime {
         type Balance = u64;
         type Event = ();
         type DustRemoval = ();
@@ -76,21 +78,17 @@ mod tests {
         type MaxLocks = ();
     }
 
-    impl pallet_swaps::Trait for TestRuntime {
+    impl pallet_swaps::Config for TestRuntime {
         type Event = ();
         type SwapId = u64;
         type Currency = pallet_balances::Module<TestRuntime>;
     }
 
-    impl pallet_fungible::Trait for TestRuntime {
+    impl pallet_fungible::Config for TestRuntime {
         type Event = ();
         type TokenBalance = u64;
         type TokenId = u64;
     }
-
-    pub type Fungible = pallet_fungible::Module<TestRuntime>;
-    pub type Swaps = pallet_swaps::Module<TestRuntime>;
-    pub type StoneIndex = pallet_stone_index::Module<TestRuntime>;
 
     fn swap_account_for_asset(index_id: u64) -> u64 {
         match index_id {

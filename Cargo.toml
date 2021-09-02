@@ -5,37 +5,40 @@ edition = '2018'
 homepage = 'https://substrate.dev'
 license = 'Unlicense'
 name = 'swaps-integration-demo'
-version = '2.0.0'
+version = '0.1.0'
 
 [package.metadata.docs.rs]
 targets = ['x86_64-unknown-linux-gnu']
 
-# alias "parity-scale-code" to "codec"
-[dependencies.codec]
-default-features = false
-features = ['derive']
-package = 'parity-scale-codec'
-version = '1.3.4'
-
 [dependencies]
-frame-support = { default-features = false, version = '2.0.0' }
-frame-system = { default-features = false, version = '2.0.0' }
-sp-runtime = { version = '2.0.0', default-features = false }
-pallet-stone-index = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '2.0.0' }
-pallet-assets = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '2.0.0' }
-pallet-swaps = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.0' }
+codec = { default-features = false, features = ['derive'], package = 'parity-scale-codec', version = '2.0.0' }
+frame-support = { default-features = false, version = '3.0.0' }
+frame-system = { default-features = false, version = '3.0.0' }
+frame-benchmarking = { default-features = false, optional = true, version = '3.1.0' }
+sp-std = { default-features = false, version = '3.0.0' }
+pallet-stone-index = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '3.0.0' }
+pallet-assets = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '2.1.0' }
+pallet-swaps = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.1' }
 pallet-fungible = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.0' }
-pallet-balances = { version = '2.0.0', default-features = false }
+pallet-balances = { version = '3.0.0', default-features = false }
 
 [dev-dependencies]
-sp-core = { default-features = false, version = '2.0.0' }
-sp-io = { default-features = false, version = '2.0.0' }
+serde = { version = "1.0.123" }
+sp-core = { default-features = false, version = '3.0.0' }
+sp-io = { default-features = false, version = '3.0.0' }
+sp-runtime = { version = '3.0.0', default-features = false }
 
 [features]
 default = ['std']
 std = [
-    'codec/std',
-    'frame-support/std',
-    'frame-system/std',
-    'pallet-balances/std'
+	'codec/std',
+	'frame-support/std',
+	'frame-system/std',
+	'frame-benchmarking/std',
+	'sp-std/std',
+	'pallet-stone-index/std',
+	'pallet-assets/std',
+	'pallet-swaps/std',
+	'pallet-fungible/std',
+	'pallet-balances/std'
 ]
