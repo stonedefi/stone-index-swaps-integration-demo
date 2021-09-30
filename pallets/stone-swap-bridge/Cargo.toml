@@ -1,0 +1,46 @@
+[package]
+authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
+description = 'FRAME pallet template for defining custom runtime logic.'
+edition = '2018'
+homepage = 'https://substrate.dev'
+license = 'Unlicense'
+name = 'pallet-stone-swaps-bridge'
+version = '0.1.0'
+
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
+
+[dependencies]
+codec = { default-features = false, features = ['derive'], package = 'parity-scale-codec', version = '2.0.0' }
+frame-support = { default-features = false, version = '3.0.0' }
+frame-system = { default-features = false, version = '3.0.0' }
+frame-benchmarking = { default-features = false, optional = true, version = '3.1.0' }
+sp-std = { default-features = false, version = '3.0.0' }
+sp-runtime = { version = '3.0.0', default-features = false }
+pallet-stone-index = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '0.3.1' }
+pallet-assets = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '2.1.1' }
+pallet-swaps = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.1' }
+pallet-fungible = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.0' }
+pallet-balances = { version = '3.0.0', default-features = false }
+serde = { version = "1.0.123" }
+
+[dev-dependencies]
+sp-core = { default-features = false, version = '3.0.0' }
+sp-io = { default-features = false, version = '3.0.0' }
+
+[features]
+default = ['std']
+std = [
+	'codec/std',
+	'frame-support/std',
+	'frame-system/std',
+	'frame-benchmarking/std',
+	'sp-std/std',
+	'sp-runtime/std',
+	'pallet-stone-index/std',
+	'pallet-assets/std',
+	'pallet-swaps/std',
+	'pallet-fungible/std',
+	'pallet-balances/std',
+	'serde/std'
+]
