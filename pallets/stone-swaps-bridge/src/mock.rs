@@ -105,6 +105,27 @@ pub fn new_test_ext() -> sp_io::TestExternalities {
         ],
     }.assimilate_storage(&mut t).unwrap();
 
+	pallet_stone_index::GenesisConfig::<TestRuntime> {
+		indexes: vec![(
+			INDEX_ID,
+			pallet_stone_index::StoneIndex {
+				id: INDEX_ID,
+				name: "FirstIndex".as_bytes().to_vec(),
+				components: vec![
+					pallet_stone_index::StoneIndexComponent {
+						asset_id: 1,
+						weight: 3,
+					},
+					pallet_stone_index::StoneIndexComponent {
+						asset_id: 2,
+						weight: 2,
+					},
+				],
+				owner: 100000,
+			},
+		)]
+	}.assimilate_storage(&mut t).unwrap();
+
     pallet_stone_swaps_bridge::GenesisConfig::<TestRuntime> {
         index_to_token: vec![
             (1, 10001),

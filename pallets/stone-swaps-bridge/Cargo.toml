@@ -17,7 +17,7 @@ frame-system = { default-features = false, version = '3.0.0' }
 frame-benchmarking = { default-features = false, optional = true, version = '3.1.0' }
 sp-std = { default-features = false, version = '3.0.0' }
 sp-runtime = { version = '3.0.0', default-features = false }
-pallet-stone-index = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '0.3.1' }
+pallet-stone-index = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '0.3.2' }
 pallet-assets = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '2.1.1' }
 pallet-swaps = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.1' }
 pallet-fungible = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.0' }
