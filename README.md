@@ -17,3 +17,15 @@ The following steps show how to use this bridge for a major scenario: a user has
 1. call `StoneSwapBridge::deposit_index_to_swap` to transfer back the index as a token to DEX for further trade.
 
 This scenario is covered in the test case `test_buy_index_with_token`.
+
+## Setup
+
+After cloning the repository, run `cargo build` to build the packages and run
+the tests.
+
+## Tests
+
+After cloning the repository, run `cargo test` to build the packages and run
+the tests.
+
+[substrate]: https://github.com/paritytech/substrate
