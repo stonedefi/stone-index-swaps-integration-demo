@@ -45,6 +45,10 @@ sp-std = { default-features = false, version = '3.0.0' }
 sp-transaction-pool = { default-features = false, version = '3.0.0' }
 sp-version = { default-features = false, version = '3.0.0' }
 
+pallet-stone-index = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '0.3.2' }
+pallet-assets = { git = 'https://github.com/stonedefi/stoneindex-node', default-features = false, version = '2.1.1' }
+pallet-swaps = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.1' }
+pallet-fungible = { git = 'https://github.com/stonedefi/pallet-swaps', default-features = false, version = '0.1.0' }
 # local dependencies
 pallet-stone-swaps-bridge = { default-features = false, path = '../pallets/stone-swaps-bridge', version = '0.1.0' }
 
@@ -71,7 +75,6 @@ std = [
     'pallet-grandpa/std',
     'pallet-randomness-collective-flip/std',
     'pallet-sudo/std',
-    'pallet-stone-swaps-bridge/std',
     'pallet-timestamp/std',
     'pallet-transaction-payment-rpc-runtime-api/std',
     'pallet-transaction-payment/std',
@@ -87,4 +90,9 @@ std = [
     'sp-std/std',
     'sp-transaction-pool/std',
     'sp-version/std',
+	'pallet-assets/std',
+	'pallet-stone-index/std',
+	'pallet-fungible/std',
+	'pallet-swaps/std',
+    'pallet-stone-swaps-bridge/std',
 ]

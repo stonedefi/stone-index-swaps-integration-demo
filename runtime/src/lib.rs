@@ -40,7 +40,7 @@ pub use frame_support::{
 use pallet_transaction_payment::CurrencyAdapter;
 
 /// Import the template pallet.
-pub use pallet_template;
+pub use pallet_stone_swaps_bridge;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -265,8 +265,30 @@ impl pallet_sudo::Config for Runtime {
 	type Call = Call;
 }
 
-/// Configure the pallet-template in pallets/template.
-impl pallet_template::Config for Runtime {
+impl pallet_assets::Config for Runtime {
+    type Event = Event;
+    type Balance = Balance;
+    type AssetId = u64;
+}
+
+impl pallet_stone_index::Config for Runtime {
+    type Event = Event;
+    type IndexId = u64;
+}
+
+impl pallet_swaps::Config for Runtime {
+    type Event = Event;
+    type SwapId = u64;
+    type Currency = pallet_balances::Module<Runtime>;
+}
+
+impl pallet_fungible::Config for Runtime {
+    type Event = Event;
+    type TokenBalance = Balance;
+    type TokenId = u64;
+}
+
+impl pallet_stone_swaps_bridge::Config for Runtime {
 	type Event = Event;
 }
 
@@ -286,8 +308,12 @@ construct_runtime!(
 		TransactionPayment: pallet_transaction_payment::{Module, Storage},
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		// Include the custom logic from the pallet-template in the runtime.
-		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
-	}
+        Assets: pallet_assets::{Module, Call, Event<T>},
+        StoneIndex: pallet_stone_index::{Module, Call, Storage, Event<T>},
+        Fungible: pallet_fungible::{Module, Call, Storage, Event<T>},
+        Swaps: pallet_swaps::{Module, Call, Storage, Event<T>},      
+        StoneSwapBridge: pallet_stone_swaps_bridge::{Module, Call, Config<T>, Storage, Event<T>},
+ 	}
 );
 
 /// The address format for describing accounts.
